@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Data & cache
+data/
+.cache/
+output/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (desktop app)
+node_modules/
+
+# Rust build artifacts
+desktop/hot-search-app/target/
+desktop/hot-search-app/src-tauri/target/

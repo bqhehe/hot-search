@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全网热点聚合</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="header">
+    <div class="header-content">
+        <h1>🔥 全网热点聚合</h1>
+        <div class="date" id="dateDisplay">加载中...</div>
+        <div class="stats">
+            <span class="stat-item">📊 <span class="stat-value" id="platformCount">-</span> 个平台</span>
+            <span class="stat-item">📝 <span class="stat-value" id="totalCount">-</span> 条热点</span>
+            <span class="stat-item">⚡ <span class="stat-value">orz.ai</span></span>
+        </div>
+        <div class="source-badge">Powered by orz.ai API</div>
+    </div>
+</div>
+
+<div class="search-bar">
+    <div class="search-inner">
+        <input class="search-input" type="text" id="searchInput" placeholder="🔍 搜索热点关键词..." autocomplete="off">
+        <span class="search-count" id="searchCount">共 <span>-</span> 条</span>
+        <span class="update-time" id="updateTime"></span>
+        <label class="auto-refresh-label">
+            <input type="checkbox" id="autoRefreshCb"> 自动刷新
+        </label>
+        <button class="refresh-btn" id="refreshBtn">🔄 刷新数据</button>
+        <div class="theme-controls">
+            <div class="accent-dots" id="accentDots">
+                <span class="accent-dot active" data-accent="purple" style="background:#6c5ce7" title="紫色"></span>
+                <span class="accent-dot" data-accent="blue" style="background:#0984e3" title="蓝色"></span>
+                <span class="accent-dot" data-accent="green" style="background:#00b894" title="绿色"></span>
+                <span class="accent-dot" data-accent="pink" style="background:#e84393" title="粉色"></span>
+                <span class="accent-dot" data-accent="orange" style="background:#e17055" title="橙色"></span>
+            </div>
+            <button class="theme-toggle" id="themeToggle" title="切换主题"></button>
+        </div>
+    </div>
+</div>
+
+<div class="category-bar">
+    <div class="category-inner" id="categoryTabs">
+        <span class="cat-chip active" data-cat="all">📋 全部</span>
+        <span class="cat-chip" data-cat="social">👥 社交</span>
+        <span class="cat-chip" data-cat="video">🎬 视频</span>
+        <span class="cat-chip" data-cat="news">📰 新闻</span>
+        <span class="cat-chip" data-cat="tech">💡 科技</span>
+        <span class="cat-chip" data-cat="dev">🛠️ 技术</span>
+        <span class="cat-chip" data-cat="finance">💰 财经</span>
+    </div>
+</div>
+
+<div class="nav-bar">
+    <div class="nav-inner" id="navChips">
+    </div>
+</div>
+
+<div class="container" id="cardContainer">
+    <div class="empty-card">
+        <p><span class="loading-spinner"></span> 正在加载热点数据...</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>数据来源: orz.ai API</p>
+    <p>全网热点聚合 - Tauri Desktop App</p>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
