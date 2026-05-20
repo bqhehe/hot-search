@@ -2,20 +2,7 @@
 
 实时抓取各大平台的热门内容，生成美观的 HTML 热点聚合报告。
 
-## 效果预览
-
-![首页概览](screenshots/hero.png)
-
-![平台热点卡片](screenshots/platforms.png)
-
-![内容详情](screenshots/content.png)
-
-<details>
-<summary>📖 点击查看完整页面截图</summary>
-
-![完整页面](screenshots/full-page.png)
-
-</details>
+![效果预览](screenshots/preview.png)
 
 ## ✨ 特性
 
