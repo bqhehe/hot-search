@@ -1,16 +1,29 @@
-# 全网热点聚合工具
+# 🔥 全网热点聚合工具
 
 实时抓取各大平台的热门内容，生成美观的 HTML 热点聚合报告。
 
-## 参考开源项目
+## 效果预览
 
-本项目参考了以下优秀开源项目的实现思路：
+![首页概览](screenshots/hero.png)
 
-| 项目 | Stars | 说明 |
-|------|-------|------|
-| [imsyy/DailyHotApi](https://github.com/imsyy/DailyHotApi) | 3.8k | 今日热榜 API，40+ 平台，支持自部署 |
-| [baiwumm/next-daily-hot](https://github.com/baiwumm/next-daily-hot) | - | Next.js 热点聚合前端，30+ 平台 |
-| [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar) | - | AI 驱动的热点监控，35+ 平台，多渠道推送 |
+![平台热点卡片](screenshots/platforms.png)
+
+![内容详情](screenshots/content.png)
+
+<details>
+<summary>📖 点击查看完整页面截图</summary>
+
+![完整页面](screenshots/full-page.png)
+
+</details>
+
+## ✨ 特性
+
+- 🌐 **13 个本地自爬平台** + **25 个 API 平台**，覆盖主流资讯源
+- 🎨 **深色主题** 响应式 HTML 报告，直接浏览器打开
+- ⚡ **并发抓取**，支持自定义并发数
+- 💾 **两级缓存**（内存 + 文件），减少重复请求
+- 🐳 **Docker 部署** DailyHotApi，一键扩展平台
 
 ## 支持平台（13 个本地 + 25 个 API）
 
@@ -37,7 +50,8 @@
 ## 安装
 
 ```bash
-cd /Users/libuqiu/Documents/test-code
+git clone https://github.com/bqhehe/hot-search.git
+cd hot-search
 pip install -r requirements.txt
 ```
 
@@ -73,9 +87,6 @@ python main.py --clear-cache
 # Docker 部署
 docker run -d --name dailyhot -p 6688:6688 imsyy/dailyhot-api
 
-# 或使用 Docker Compose
-# docker-compose.yml 已包含在 DailyHotApi 项目中
-
 # 设置环境变量
 export DAILYHOT_API_URL=http://localhost:6688
 
@@ -98,6 +109,7 @@ python main.py --api on
 ├── main.py                # 主入口
 ├── report.py              # HTML 报告生成器
 ├── cache.py               # 缓存模块（内存+文件）
+├── db.py                  # SQLite 数据持久化
 ├── requirements.txt       # Python 依赖
 ├── fetchers/
 │   ├── base.py           # 爬取器基类
@@ -115,6 +127,21 @@ python main.py --api on
 │   ├── github.py         # GitHub Trending
 │   ├── juejin.py         # 掘金
 │   └── v2ex.py           # V2EX
+├── screenshots/           # 效果截图
 ├── output/                # 报告输出目录
 └── .cache/                # API 缓存目录
 ```
+
+## 参考开源项目
+
+本项目参考了以下优秀开源项目的实现思路：
+
+| 项目 | Stars | 说明 |
+|------|-------|------|
+| [imsyy/DailyHotApi](https://github.com/imsyy/DailyHotApi) | 3.8k | 今日热榜 API，40+ 平台，支持自部署 |
+| [baiwumm/next-daily-hot](https://github.com/baiwumm/next-daily-hot) | - | Next.js 热点聚合前端，30+ 平台 |
+| [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar) | - | AI 驱动的热点监控，35+ 平台，多渠道推送 |
+
+## License
+
+[MIT License](LICENSE)
