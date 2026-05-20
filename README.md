@@ -6,15 +6,19 @@
 
 ## ✨ 特性
 
-- 🌐 **13 个本地自爬平台** + **25 个 API 平台**，覆盖主流资讯源
-- 🎨 **深色主题** 响应式 HTML 报告，直接浏览器打开
+- 🌐 **25+ 平台**覆盖，本地自爬 + API 双模式
+- 🎨 **深色主题**响应式 HTML 报告，直接浏览器打开
 - ⚡ **并发抓取**，支持自定义并发数
 - 💾 **两级缓存**（内存 + 文件），减少重复请求
-- 🐳 **Docker 部署** DailyHotApi，一键扩展平台
+- 📊 **SQLite 数据持久化**，历史数据可回溯
+- 🆓 **orz.ai 公开 API**，免费无需部署即可获取 22 个平台数据
+- 🐳 **Docker 部署** DailyHotApi，一键扩展至 40+ 平台
+- 🖥️ **Tauri 桌面端**（开发中）
 
-## 支持平台（13 个本地 + 25 个 API）
+## 支持平台
 
-### 本地自爬（默认模式）
+### 本地自爬（13 个）
+
 | 平台 | 类型 | 说明 |
 |------|------|------|
 | 微博热搜 | 社交 | 实时热搜榜 |
@@ -27,12 +31,17 @@
 | 虎嗅 | 商业媒体 | 热文 |
 | 少数派 | 数码生活 | 周热榜 |
 | IT之家 | 科技资讯 | 热门资讯 |
-| GitHub Trending | 开源 | 全球趋势项目 |
+| GitHub Trending | 开源 | 全球趋势项目（日/周/月） |
 | 掘金 | 技术博客 | 推荐热文 |
 | V2EX | 社区 | 热门话题 |
 
-### API 模式（需自部署 DailyHotApi）
-额外支持 12 个平台：快手、CSDN、豆瓣电影、网易新闻、腾讯新闻、新浪热点、澎湃新闻、百度贴吧、虎扑、酷安、AcFun、微信读书、HelloGitHub
+### orz.ai 公开 API（22 个，免费免部署）
+
+微博、知乎、豆瓣、贴吧、虎扑、B站、抖音、今日头条、百度、腾讯新闻、36氪、少数派、IT之家、快手、CSDN、网易新闻、澎湃新闻、酷安、AcFun、HelloGitHub 等
+
+### DailyHotApi 自部署（40+ 平台）
+
+额外支持：微信读书、新浪热点等。需 Docker 部署。
 
 ## 安装
 
@@ -45,14 +54,13 @@ pip install -r requirements.txt
 ## 使用
 
 ```bash
-# 默认模式：纯本地自爬
+# 默认模式：orz.ai API 优先 + 自爬 fallback（推荐）
 python main.py
 
-# API 模式：需先部署 DailyHotApi
-docker run -d --name dailyhot -p 6688:6688 imsyy/dailyhot-api
-python main.py --api on
+# 纯本地自爬（不调用任何 API）
+python main.py --api off
 
-# 仅 API 模式（不自爬）
+# 仅 API（不自爬）
 python main.py --api only
 
 # 指定平台
@@ -68,17 +76,17 @@ python main.py -w 10
 python main.py --clear-cache
 ```
 
-## 自部署 DailyHotApi（推荐）
+### 自部署 DailyHotApi（扩展更多平台）
 
 ```bash
 # Docker 部署
 docker run -d --name dailyhot -p 6688:6688 imsyy/dailyhot-api
 
-# 设置环境变量
+# 设置环境变量切换数据源
 export DAILYHOT_API_URL=http://localhost:6688
 
 # 然后运行
-python main.py --api on
+python main.py --api only
 ```
 
 ## 输出
@@ -94,40 +102,40 @@ python main.py --api on
 
 ```
 ├── main.py                # 主入口
-├── report.py              # HTML 报告生成器
-├── cache.py               # 缓存模块（内存+文件）
+├── report.py              # HTML 报告生成器（Jinja2 模板）
+├── cache.py               # 两级缓存（内存 + 文件）
 ├── db.py                  # SQLite 数据持久化
 ├── requirements.txt       # Python 依赖
 ├── fetchers/
-│   ├── base.py           # 爬取器基类
-│   ├── dailyhot_api.py   # DailyHotApi 接口封装
-│   ├── weibo.py          # 微博热搜
-│   ├── zhihu.py          # 知乎热榜
-│   ├── bilibili.py       # B站热门
-│   ├── douyin.py         # 抖音热点
-│   ├── toutiao.py        # 今日头条
-│   ├── baidu.py          # 百度热搜
-│   ├── kr36.py           # 36氪
-│   ├── huxiu.py          # 虎嗅
-│   ├── sspai.py          # 少数派
-│   ├── ithome.py         # IT之家
-│   ├── github.py         # GitHub Trending
-│   ├── juejin.py         # 掘金
-│   └── v2ex.py           # V2EX
+│   ├── base.py            # 爬取器基类
+│   ├── dailyhot_api.py    # orz.ai + DailyHotApi 聚合接口
+│   ├── weibo.py           # 微博热搜
+│   ├── zhihu.py           # 知乎热榜
+│   ├── bilibili.py        # B站热门
+│   ├── douyin.py          # 抖音热点
+│   ├── toutiao.py         # 今日头条
+│   ├── baidu.py           # 百度热搜
+│   ├── kr36.py            # 36氪
+│   ├── huxiu.py           # 虎嗅
+│   ├── sspai.py           # 少数派
+│   ├── ithome.py          # IT之家
+│   ├── github.py          # GitHub Trending
+│   ├── juejin.py          # 掘金
+│   └── v2ex.py            # V2EX
+├── utils/                 # 工具函数
+├── desktop/               # Tauri v2 桌面端（开发中）
+│   └── hot-search-app/
 ├── screenshots/           # 效果截图
-├── output/                # 报告输出目录
-└── .cache/                # API 缓存目录
+├── output/                # 报告输出目录（gitignore）
+└── .cache/                # API 缓存目录（gitignore）
 ```
 
 ## 参考开源项目
 
-本项目参考了以下优秀开源项目的实现思路：
-
-| 项目 | Stars | 说明 |
-|------|-------|------|
-| [imsyy/DailyHotApi](https://github.com/imsyy/DailyHotApi) | 3.8k | 今日热榜 API，40+ 平台，支持自部署 |
-| [baiwumm/next-daily-hot](https://github.com/baiwumm/next-daily-hot) | - | Next.js 热点聚合前端，30+ 平台 |
-| [sansan0/TrendRadar](https://github.com/sansan0/TrendRadar) | - | AI 驱动的热点监控，35+ 平台，多渠道推送 |
+| 项目 | 说明 |
+|------|------|
+| [imsyy/DailyHotApi](https://github.com/imsyy/DailyHotApi) | 今日热榜 API，40+ 平台，支持自部署 |
+| [orz.ai](https://orz.ai) | 公开热点 API，免费免部署 |
 
 ## License
 
